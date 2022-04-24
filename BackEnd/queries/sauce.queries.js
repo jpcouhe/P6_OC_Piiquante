@@ -1,0 +1,51 @@
+const Sauce = require("../database/models/sauce.model");
+
+exports.getSauces = () => {
+    return Sauce.find({});
+};
+
+exports.getSauce = (sauceId) => {
+    return Sauce.findOne({ _id: sauceId });
+};
+
+exports.deleteSauce = (sauceId) => {
+    return Sauce.findOneAndDelete({ _id: sauceId });
+};
+
+exports.createSauce = (sauce, req) => {
+    const newSauce = new Sauce({
+        ...sauce,
+        imageUrl: req.protocol + "://" + req.get("host") + "/images/" + req.file.filename,
+        likes: 0,
+        dislikes: 0,
+        usersLiked: [],
+        usersDisliked: [],
+    });
+    return newSauce.save();
+};
+
+exports.updateSauce = (sauce, sauceId) => {
+    return Sauce.updateOne({ _id: sauceId }, { ...sauce, _id: sauceId });
+};
+
+exports.likeSauce = (sauceId, userId, like) => {
+    if (like === 1) {
+        return Sauce.updateOne({ _id: sauceId }, { $inc: { likes: +1 }, $push: { usersLiked: userId } });
+    } else {
+        return Sauce.updateOne({ _id: sauceId }, { $inc: { likes: -1 }, $pull: { usersLiked: userId } });
+    }
+};
+
+exports.dislikeSauce = (sauceId, userId, dislike) => {
+    if (dislike === -1) {
+        return Sauce.updateOne(
+            { _id: sauceId },
+            { $inc: { dislikes: +1 }, $push: { usersDisliked: userId } }
+        );
+    } else {
+        return Sauce.updateOne(
+            { _id: sauceId },
+            { $inc: { dislikes: -1 }, $pull: { usersDisliked: userId } }
+        );
+    }
+};
