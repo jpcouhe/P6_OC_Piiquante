@@ -18,7 +18,11 @@ userSchema.statics.hashPassword = async (password) => {
 };
 
 userSchema.statics.comparePassword = async function (password, userpassword) {
-    return bcrypt.compare(password, userpassword);
+    try {
+        return bcrypt.compare(password, userpassword);
+    } catch (error) {
+        throw e;
+    }
 };
 
 module.exports = mongoose.model("User", userSchema);

@@ -1,4 +1,5 @@
 const multer = require("multer");
+const uuid = require("uuid");
 // recupere la data qui est sous forme de multipart/form-data
 
 const MIME_TYPES = {
@@ -12,9 +13,8 @@ const storage = multer.diskStorage({
         callback(null, "images");
     },
     filename: (req, file, callback) => {
-        // const name = file.originalname.split(" ").join("_");
         const extension = MIME_TYPES[file.mimetype];
-        callback(null, Date.now() + "." + extension);
+        callback(null, uuid.v4() + "." + extension);
     },
 });
 
