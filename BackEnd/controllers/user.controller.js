@@ -1,6 +1,7 @@
 const User = require("../database/models/user.models");
 // const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
 const { createUser, findUserAndComparePassword } = require("../queries/user.queries");
 
 exports.signup = async (req, res) => {
@@ -23,7 +24,7 @@ exports.login = async (req, res) => {
         }
         res.status(200).json({
             userId: userValid._id,
-            token: jwt.sign({ userId: userValid._id }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
+            token: jwt.sign({ userId: userValid._id }, process.env.JWT_KEY, { expiresIn: "24h" }),
         });
     } catch (error) {
         if (error.message === "Mot de passe incorrect !") {

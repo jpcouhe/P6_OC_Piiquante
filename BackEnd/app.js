@@ -2,7 +2,8 @@ const path = require("path");
 const express = require("express");
 /* Connection to the database */
 const { clientPromise } = require("./database");
-
+const dotenv = require("dotenv").config();
+// Ou mettre dans le fichier package.json/script : node -r dotenv/config
 const morgan = require("morgan");
 const morganBody = require("morgan-body");
 const helmet = require("helmet");
@@ -13,9 +14,11 @@ const userRoutes = require("./routes/user.routes");
 /* It's creating an instance of the express application. */
 const app = express();
 
-/* It's a middleware that logs all requests, including the body, to the console. */
-morganBody(app);
-app.use(morgan("combined"));
+if (process.env.NODE_ENV === "development") {
+    /* It's a middleware that logs all requests, including the body, to the console. */
+    morganBody(app);
+    app.use(morgan("combined"));
+}
 
 /* It's a middleware that parses incoming requests with JSON payloads. */
 app.use(express.json());
@@ -44,8 +47,5 @@ app.use(
 
 app.use("/api/auth", userRoutes);
 app.use("/api/sauces", saucesRoutes);
-
-
-
 
 module.exports = app;
