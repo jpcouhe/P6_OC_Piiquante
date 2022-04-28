@@ -24,10 +24,16 @@ This project was generated with Angular CLI version 13.2.4.
 
 
 - `cd ./BackEnd`
-- `npm install`
-- `npm start` 
+- `npm install` </br>
 
-With nodemon the app will automatically reload if you change any of the source file.
+In dev mode : </br>
+- `npm start` </br>
+you will access to more packages (morgan, morganBody) </br>
+
+In product mode : </br>
+- `npm start:prod #` </br>
+
+*With nodemon the app will automatically reload if you change any of the source file.*
 
 After npm is done installing, set any environment variables in a .env file (in the folder BackEnd) , with this key :
 
