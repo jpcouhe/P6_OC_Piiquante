@@ -5,12 +5,12 @@
 API Documentation is available here : [API doc](https://s3.eu-west-1.amazonaws.com/course.oc-static.com/projects/DWJ_FR_P6/Requirements_DW_P6.pdf)
 
 
-## :building_construction: Installation
+# :building_construction: Installation
 
 - Clone this project from Github
 - Make sur you have Node.js installed.
 
-### :mag: Frontend
+## :mag: Frontend
 
 This project was generated with Angular CLI version 13.2.4.
 
@@ -20,17 +20,21 @@ This project was generated with Angular CLI version 13.2.4.
 
 
 
-### :mag: Backend
+## :mag: Backend
 
+This project was generated with NodeJs v16.14.0
 
-- `cd ./BackEnd`
-- `npm install` </br>
+- `cd ./BackEnd`</br>
 
-In dev mode : </br>
+#### :construction: In dev mode : </br>
+
+- `npm install`
 - `npm start` </br>
 you will access to more packages (morgan, morganBody) </br>
 
-In product mode : </br>
+#### 🚀 In product mode : </br>
+
+- `npm install --only=prod` </br>
 - `npm start:prod #` </br>
 
 *With nodemon the app will automatically reload if you change any of the source file.*
