@@ -35,7 +35,7 @@ you will access to more packages (morgan, morganBody) </br>
 #### 🚀 In product mode : </br>
 
 - `npm install --only=prod` </br>
-- `npm start:prod #` </br>
+- `npm run start:prod #` </br>
 
 *With nodemon the app will automatically reload if you change any of the source file.*
 
