@@ -14,11 +14,11 @@ const userRoutes = require("./routes/user.routes");
 /* It's creating an instance of the express application. */
 const app = express();
 
-if (process.env.NODE_ENV === "development") {
-    /* It's a middleware that logs all requests, including the body, to the console. */
-    morganBody(app);
-    app.use(morgan("combined"));
-}
+// if (process.env.NODE_ENV === "development") {
+//     /* It's a middleware that logs all requests, including the body, to the console. */
+//     morganBody(app);
+//     app.use(morgan("combined"));
+// }
 
 /* It's a middleware that parses incoming requests with JSON payloads. */
 app.use(express.json());
@@ -33,7 +33,6 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
     next();
 });
-
 /* It's a middleware that serves static files. */
 app.use("/images", express.static(path.join(__dirname, "images")));
 

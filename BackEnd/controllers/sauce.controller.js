@@ -35,40 +35,31 @@ exports.sauceCreate = async (req, res) => {
     try {
         const sauce = JSON.parse(req.body.sauce);
         // Verifie après le FrontEnd que le questionnaire est bien rempli
-        if (
-            !sauce.name ||
-            !sauce.manufacturer ||
-            !sauce.description ||
-            !sauce.mainPepper ||
-            !sauce.heat ||
-            !req.file
-        ) {
-            return res.status(400).send(new Error("Bad request!"));
-        } else {
-            await createSauce(sauce, req);
-            res.status(201).json({ message: "Objet enregistré" });
-        }
+
+        await createSauce(sauce, req);
+        res.status(201).json({ message: "Objet enregistré" });
     } catch (error) {
-        res.status(400).json({ error });
+        res.status(400).json({ message: "Bad request!" });
     }
 };
 
 exports.sauceDelete = async (req, res) => {
     try {
         const sauceId = req.params.id;
-        const sauce = await deleteSauce(sauceId);
+        const sauce = await getSauce(sauceId);
         if (!sauce) {
             throw new Error("No such Thing!");
-        }
-        if (sauce.userId !== req.auth.userId) {
+        } else if (sauce.userId !== req.auth.userId) {
             throw new Error("Unauthorized request!");
-        }
-        const filename = sauce.imageUrl.split("/images/")[1];
-        fs.unlink("images/" + filename, () => {
-            res.status(200).json({
-                message: "Deleted!",
+        } else {
+            await deleteSauce(sauce);
+            const filename = sauce.imageUrl.split("/images/")[1];
+            fs.unlink("images/" + filename, () => {
+                res.status(200).json({
+                    message: "Deleted!",
+                });
             });
-        });
+        }
     } catch (error) {
         if (error.message === "Unauthorized request!") {
             res.status(401).json({

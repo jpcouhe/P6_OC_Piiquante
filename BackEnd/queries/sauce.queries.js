@@ -9,7 +9,7 @@ exports.getSauce = (sauceId) => {
 };
 
 exports.deleteSauce = (sauceId) => {
-    return Sauce.findOneAndDelete({ _id: sauceId });
+    return Sauce.deleteOne({ _id: sauceId });
 };
 
 exports.createSauce = (sauce, req) => {

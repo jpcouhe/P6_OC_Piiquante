@@ -10,7 +10,7 @@ exports.createUser = async (body) => {
         });
         return user.save();
     } catch (error) {
-        res.status(500).json({ error });
+        throw error;
     }
 };
 
@@ -18,13 +18,17 @@ exports.findUserAndComparePassword = async (body) => {
     try {
         const emailUser = body.email;
         const user = await User.findOne({ email: emailUser });
-        const valid = await User.comparePassword(body.password, user.password);
-        if (!valid) {
-            return false;
+        if (user) {
+            const valid = await User.comparePassword(body.password, user.password);
+            if (!valid) {
+                return false;
+            } else {
+                return user;
+            }
         } else {
-            return user;
+            throw new Error("Email non reconnu");
         }
     } catch (error) {
-        res.status(500).json({ error });
+        throw error;
     }
 };
