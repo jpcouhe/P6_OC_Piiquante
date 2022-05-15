@@ -26,7 +26,7 @@ exports.findUserAndComparePassword = async (body) => {
                 return user;
             }
         } else {
-            throw new Error("Email non reconnu");
+            throw new Error("Email not recognized");
         }
     } catch (error) {
         throw error;

@@ -18,4 +18,15 @@ const storage = multer.diskStorage({
     },
 });
 
-module.exports = multer({ storage: storage }).single("image");
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, callback) => {
+        if (MIME_TYPES.hasOwnProperty(file.mimetype)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Invalid mime type"));
+        }
+    },
+});
+
+module.exports = upload.single("image");

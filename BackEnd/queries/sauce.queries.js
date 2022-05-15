@@ -28,24 +28,6 @@ exports.updateSauce = (sauce, sauceId) => {
     return Sauce.updateOne({ _id: sauceId }, { ...sauce, _id: sauceId });
 };
 
-exports.likeSauce = (sauceId, userId, like) => {
-    if (like === 1) {
-        return Sauce.updateOne({ _id: sauceId }, { $inc: { likes: +1 }, $push: { usersLiked: userId } });
-    } else {
-        return Sauce.updateOne({ _id: sauceId }, { $inc: { likes: -1 }, $pull: { usersLiked: userId } });
-    }
-};
-
-exports.dislikeSauce = (sauceId, userId, dislike) => {
-    if (dislike === -1) {
-        return Sauce.updateOne(
-            { _id: sauceId },
-            { $inc: { dislikes: +1 }, $push: { usersDisliked: userId } }
-        );
-    } else {
-        return Sauce.updateOne(
-            { _id: sauceId },
-            { $inc: { dislikes: -1 }, $pull: { usersDisliked: userId } }
-        );
-    }
+exports.updateLikeSauce = (sauceId, data) => {
+    return Sauce.updateOne({ _id: sauceId }, data);
 };

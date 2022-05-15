@@ -8,6 +8,7 @@ const {
     sauceLikes,
 } = require("../controllers/sauce.controller");
 
+/* Creating a new router object. */
 const routeur = express.Router();
 
 const auth = require("../middleware/auth");
