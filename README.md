@@ -12,7 +12,7 @@ API Documentation is available here : [API doc](https://s3.eu-west-1.amazonaws.c
 
 ## :mag: Frontend
 
-This project was generated with Angular CLI version 13.2.4.
+This project was generated with Angular CLI version 13.2.4. You can find the repo here : https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6
 
 - `cd ./FrontEnd`
 - `npm install`
